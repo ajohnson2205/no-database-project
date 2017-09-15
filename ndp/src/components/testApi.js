@@ -17,7 +17,7 @@ var admins = [
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
-var url = "https://api.intercom.io/users?user_id=";
+var url = "https://api.intercom.io/conversations?type=user&user_id=";
 
 var config = {
   auth: {
@@ -31,14 +31,17 @@ var config = {
 class TestApi extends Component {
   constructor() {
     super();
-    this.state = {}
+    this.state = {
+      userId: ""
+    }
   }
 
   search(query) {
 
-    axios.get(proxyurl + url + query, config).then((response) => {
-      console.log(response)
-    })
+    axios
+      .get(proxyurl + url + query, config)
+      .then((response) => {console.log(response)})
+      .catch((response) => {console.log("error!")})
   }
 
   updateSearch() {
@@ -48,9 +51,11 @@ class TestApi extends Component {
   render() {
     return (
       <div>
-        <input type="text" ref="query" onChange={(e) => {
+        {/* <input type="text" ref="query" onChange={(e) => {
           this.updateSearch();
-        }}/>
+        }}/> */}
+        <button for="query" onClick={(e) => {this.updateSearch()}}>Click me!</button>
+        <input type="text" ref="query" onChange={(e) => this.setState({userId: this.refs.query.value})}></input>
       </div>
     )
   }
