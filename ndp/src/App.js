@@ -8,6 +8,13 @@ import Test from './components/test';
 import TestApi from './components/testApi';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      searchInput: ""
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -18,6 +25,9 @@ class App extends Component {
         <div className="components">
           <Test className="component-test" />
           <TestApi />
+        </div>
+        <div>
+          {/* <input type="text">Data here</input> */}
         </div>
       </div>
     );
