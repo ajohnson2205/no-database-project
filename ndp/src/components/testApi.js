@@ -37,7 +37,6 @@ class TestApi extends Component {
   }
 
   search(query) {
-
     axios
       .get(proxyurl + url + query, config)
       .then((response) => {console.log(response)})

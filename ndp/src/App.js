@@ -6,6 +6,7 @@ import './App.css';
 
 import Test from './components/test';
 import TestApi from './components/testApi';
+import MyApi from './components/myApi'
 
 class App extends Component {
   constructor() {
@@ -24,10 +25,13 @@ class App extends Component {
         </div>
         <div className="components">
           <Test className="component-test" />
-          <TestApi />
+          {/* <TestApi /> */}
         </div>
         <div>
-          {/* <input type="text">Data here</input> */}
+          {/* <h1>Moar content here?</h1> */}
+        </div>
+        <div>
+          <MyApi />
         </div>
       </div>
     );
