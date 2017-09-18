@@ -9,12 +9,7 @@ import TestApi from './components/testApi';
 import MyApi from './components/myApi'
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      searchInput: ""
-    }
-  }
+
 
   render() {
     return (
@@ -39,3 +34,5 @@ class App extends Component {
 }
 
 export default App;
+
+//Why is everything re-rendering?

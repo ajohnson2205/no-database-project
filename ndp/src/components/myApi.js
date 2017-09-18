@@ -14,11 +14,21 @@ export default class MyApi extends Component {
       newCatFirstName: "",
       newCatLastName: "",
       color: undefined,
-      blerg: "Meow meow meow!",
-      cats: ['Ted', 'Gary', 'Snowball'],
-      singleCat: "Ted"
-    }
+      search: ""
+    };
 
+  }
+
+
+  post() {
+    console.log(this);
+    axios
+    .post(baseURL, {
+      firstName: this.state.newCatFirstName,
+      lastName: this.state.newCatLastName
+    })
+    .then((response) => {console.log("Updated list of cats: ", response)})
+    .catch((response) => {console.log("Issue! Issue!")})
   }
 
   get() {
@@ -30,18 +40,14 @@ export default class MyApi extends Component {
       .catch((response) => {console.log("We have an issue.")})
     }
 
-  post() {
-    axios
-      .post(baseURL, {
-        firstName: this.state.newCatFirstName,
-        lastName: this.state.newCatLastName
-      })
-      .then((response) => {console.log("Updated list of cats: ", response)})
-      .catch((response) => {console.log("Issue! Issue!")})
-  }
 
   componentWillMount() {
     this.get();
+  }
+
+
+  updateSearch(event) {
+    this.setState({search: event.target.value.substr(0,20)})
   }
 
 
@@ -53,41 +59,40 @@ export default class MyApi extends Component {
         <div>
           <form ref="cat-form">
             <input
-              placeholder="First Name"
-              form="cat-form"
               type="text"
               ref="catFirstName"
+              placeholder="First Name"
+              form="cat-form"
               autoFocus="true"
               onChange={(e) => this.setState({newCatFirstName: this.refs.catFirstName.value})}></input>
-            <input type="text" ref="catLastName"
+            <input
+              type="text"
+              ref="catLastName"
+              placeholder="Last Name"
               onChange={(e) => this.setState({newCatLastName: this.refs.catLastName.value})}></input>
-            <button onClick={(e) => {this.post()}}>Click me to create a cat!</button>
+            <button type="submit" onClick={(e) => {this.post()}}>Click me to create a cat!</button>
           </form>
         </div>
-        {/* <div>
-          <button onClick={(e) => {this.listCats()}}>List all of the cats!</button>
-        </div> */}
 
         <div>
-          {/* <CatRender
-            catArray={this.state.catArray}
-            cats={this.state.cats}
-            singleCat={this.state.singleCat}
-          /> */}
+          <div>
+            <input
+              type="text"
+              ref="search"
+              placeholder="Search for cats!"
+              maxLength='5'
+              onChange={this.updateSearch.bind(this)}
+              >
 
-          {/* <ul>
-            {this.state.catArray.map((cat) => {
-              return <CatRender catz={cat} key={cat.id} />
-            })}
-          </ul> */}
+              </input>
+          </div>
+          <div>
+            <CatRender
+              catArray={this.state.catArray.reverse()}
+              search={this.state.search}
+            />
 
-          <ul>
-            <CatRender catArray={this.state.catArray} />
-          </ul>
-
-
-
-
+          </div>
         </div>
       </div>
     )
